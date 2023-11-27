@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>左右两页</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh; /* 设置视口高度的100% */
+            overflow: hidden; /* 防止页面出现滚动条 */
+        }
+
+        /* 左侧部分 */
+        .left-page {
+            flex: 1; /* 设置左侧部分占据整个可用宽度 */
+            background-color: #808080; /* 灰色背景 */
+            color: #fff; /* 文本颜色为白色，以使其在灰色背景上清晰可见 */
+            padding: 20px; /* 添加一些内边距，以使内容不紧贴边缘 */
+        }
+
+        /* 右侧部分 */
+        .right-page {
+            flex: 1; /* 设置右侧部分占据整个可用宽度 */
+            background-color: #87CEEB; /* 淡蓝色背景 */
+            color: #fff; /* 文本颜色为白色，以使其在淡蓝色背景上清晰可见 */
+            padding: 20px; /* 添加一些内边距，以使内容不紧贴边缘 */
+        }
+    </style>
+</head>
+<body>
+<!-- 左侧部分 -->
+<div class="left-page">
+    <h1>左侧页</h1>
+    <p>这是左侧部分的内容。</p>
+</div>
+
+<!-- 右侧部分 -->
+<div class="right-page">
+    <h1>右侧页</h1>
+    <p>这是右侧部分的内容。</p>
+</div>
+</body>
+</html>

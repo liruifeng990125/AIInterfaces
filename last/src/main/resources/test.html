@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+  <!-- import Vue before Element -->
+  <script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+  <!-- import JavaScript -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script src="./src/myjs.js"></script>
+  <style>
+    /* 设置整个页面的布局为 Flexbox 布局 */
+    #main {
+      margin: 0;
+      /* 去除默认的 body 边距 */
+      height: 100vh;
+      /* 设置 body 的高度为视窗高度，确保整个页面铺满屏幕 */
+      display: flex;
+    }
+
+    /* 设置包含左右两部分的容器为 Flexbox 布局，并占满整个页面 */
+    #container {
+      flex: 1;
+      display: flex;
+    }
+
+    /* 左侧部分占据 30% 的宽度，右侧部分占据剩余的 70% */
+    #left {
+      flex: 0 0 30%;
+      background-color: #f0f0f0;
+      /* 左侧部分的背景颜色 */
+      padding: 20px;
+      /* 左侧部分的内边距 */
+    }
+
+    #right {
+      flex: 1; /* 设置右侧部分占据整个可用宽度 */
+      background-color: #87CEEB; /* 淡蓝色背景 */
+      color: #fff; /* 文本颜色为白色，以使其在淡蓝色背景上清晰可见 */
+      padding: 20px; /* 添加一些内边距，以使内容不紧贴边缘 */
+    }
+
+    /*
+     设置button按钮竖直排列
+
+    */
+    /* 使用 CSS Flexbox 布局，将按钮垂直排列 */
+    .button-container {
+      display: flex;
+      flex-direction: column; /* 垂直排列 */
+      align-items: center; /* 水平居中对齐按钮 */
+    }
+
+    /* 按钮样式 */
+    .color-button {
+      margin: 15px; /* 按钮之间的垂直间距 */
+      width: 300px; /* 按钮的宽度 */
+      height: 40px; /* 按钮的高度 */
+    }
+
+    #header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    #footer {
+      position: fixed;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      bottom: 0;
+    }
+
+
+  </style>
+</head>
+
+<body>
+<div id="app">
+  <el-container id="boxall">
+
+    <el-header id="header">
+      <img src="./src/picture/logo.png">
+    </el-header>
+
+    <el-main id="main">
+      <div id="left">
+        <div  class="button-container">
+
+          <el-input placeholder="请输入提问的内容" id="inputdata" v-model="input" size="small">
+          </el-input>
+
+          <el-button type="primary" id="btn1" class="color-button">
+            选择科大讯飞进行提问
+          </el-button>
+          <el-button type="primary" id="btn2" class="color-button">
+            选择百度AI进行提问
+          </el-button>
+          <el-button type="primary" id="btn3" class="color-button">
+            选择chatGPT进行提问
+          </el-button>
+          <el-button type="warning" id="cleanContext" class="color-button">
+            清空当前页面
+          </el-button>
+        </div>
+      </div>
+      <div id="right">
+        <div id="outputData">
+        </div>
+      </div>
+</div>
+</el-main>
+<el-footer id="footer">
+  <img src="">
+  <img src="./src/picture/footer.png" alt="footer" width="1500" height="300">
+
+</el-footer>
+
+</div>
+</el-container>
+</div>
+
+</body>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: function () {
+      return {
+        input: '',
+        visible: false
+      }
+    }
+
+  })
+
+</script>
+
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎来到首页</title>
+<style>
+    #boxall {
+        width: 1500px;
+        height: 720px;
+        flex: auto;
+        margin: auto;
+       background-image: url("robot.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    #box1{
+        width: 500px;
+        height: 180px;
+        position: relative;
+        left: 500px;
+        top:200px;
+
+    }
+    #outputData{
+        width: 500px;
+        height: 180px;
+        position: relative;
+        color: sandybrown;
+        left: 500px;
+        top:200px;
+
+    }
+    #inputdata{
+        width: 433px;
+        height: 80px;
+        position: relative;
+        box-shadow: 0px 10px 20px darkslategray;
+        background-color: black;
+        color: #f3f3f3;
+        text-align: left;
+        outline: none;
+        opacity: 50%;
+        white-space: pre-wrap;
+    }
+    .color-button{
+        position: relative;
+        top: 10px;
+        color: darkslategray;
+        background-color: blanchedalmond;
+    }
+    #btn4{
+        position: relative;
+        top:40px;
+        right: 400px;
+        color: burlywood;
+        background-color: darkslategray;
+    }
+    #cleanContext{
+        position: relative;
+        top:17px;
+        left: 300px;
+        color: burlywood;
+        background-color: darkslategray;
+    }
+    .color-button:hover{
+        background-color: red;
+    }
+    #btn4:hover{
+        background-color: chartreuse;
+    }
+    #cleanContext:hover{
+        background-color: chartreuse;
+    }
+    ul {
+        margin: 0 auto;
+        text-align: center;
+        display: block;
+    }
+
+    .bubble-container {
+        position: relative;
+        background-color: #f3f3f3;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        font-size: 14px;
+    }
+
+    .bubble-arrow {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        background-color: #f3f3f3;
+        transform: rotate(45deg);
+    }
+    .bubble-container {
+        position: absolute;
+        top: 100px;
+        left: 20px;
+    }
+
+    .bubble-arrow {
+        top: 100%;
+        right: -10px;
+    }
+</style>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<!--
+<script src="js/code.jquery.com_jquery-3.7.1.min.js"></script>
+-->
+</head>
+<body>
+<div id="boxall">
+    <div id="box1">
+        <textarea type="text" id ="inputdata" >
+        </textarea>
+        <button type="button" id="btn1" class="color-button">
+            点击科大讯飞进行提问
+        </button>
+        <button type="button" id="btn2" class="color-button">
+            点击百度AI进行提问
+        </button>
+        <button type="button" id="btn3" class="color-button">
+            点击chatGPT进行提问
+        </button>
+        <button type="button" id="btn4">
+            提交
+        </button>
+        <button type="button" id="cleanContext">清空当前内容</button>
+    </div>
+    <div id="outputData">
+
+    </div>
+</div>
+<div class="bubble-container">
+    <div class="bubble-arrow"></div>
+    <div class="bubble-content">
+        欢迎使用chatgpt，使用对话框进行问答
+    </div>
+</div>
+</body>
+<script>
+    var flag =0;
+    $("#btn1").click(function (){
+        flag =1;
+        urldata = "http://localhost:8080/helloIFlytek";
+        console.log(flag);
+    });
+    $("#btn2").click(function (){
+       flag =2;
+        urldata = "http://localhost:8080/helloIBaidu";
+        console.log(flag);
+    });
+    $("#btn3").click(function (){
+        flag =3;
+        urldata = "http://localhost:8080/hellochatGPT";
+        console.log(flag);
+
+    });
+
+    var urldata =null;
+    console.log("FLAG"+flag);
+    /**
+     * 点击按钮，发送ajax请求，将数据显示到页面中
+     */
+    /**
+     * 选择模型，一次只能选择一个，并且当
+     */
+    console.log(urldata);
+    $(document).ready(function(){
+        $('.color-button').click(function(){
+            // 移除所有按钮的红色颜色
+            $('.color-button').css('background-color', '');
+
+            // 设置当前按钮的颜色为红色
+            $(this).css('background-color', 'red');
+        });
+    });
+
+    $("#btn4").click(
+
+        function (){
+            console.log("urldata ==== "+urldata);
+            var inputContent = $("#inputdata").val();
+            if ((flag===1 ||flag===2 ||flag===3) && urldata!==null){
+                $.ajax({
+                    // 请求类型
+                    type:"POST",
+                    // 请求路径
+                    url:urldata,
+                    dataType: 'text',
+                    // 请求数据,发送到服务器的数据，可以把文本输入框的数据返回
+                    //JSON对象
+                    data:{
+                        question:inputContent,
+                        type:"baidu"
+
+                    },
+                    //成功回调,data是返回的数据 如"调用IBaiduAI接口成功"
+                    success:function(answer){
+                        console.log("调用成功"+ answer);
+
+                        var li = $('<li>' + answer + '</li>');
+
+                        $("#outputData").append(li);
+                    },
+
+                    // 失败回调
+                    error:err=>{
+                        console.log(err);
+                    }
+                })
+
+            }
+            else {
+                // 弹出提示
+                alert('请选择模型');
+            }
+
+    });
+    $("#cleanContext").click(
+        function () {
+            $("ul").empty();
+        }
+    )
+
+
+
+
+
+</script>
+
+</html>
